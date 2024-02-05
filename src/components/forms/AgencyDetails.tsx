@@ -268,4 +268,3 @@ const AgencyDetails = ({ data }: Props) => {
 };
 
 export default AgencyDetails;
-// 2-33
