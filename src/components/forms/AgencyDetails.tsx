@@ -171,7 +171,14 @@ const AgencyDetails = ({ data }: Props) => {
       if (response) {
         return router.refresh();
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+      toast({
+        variant: "destructive",
+        title: "Oppse!",
+        description: "Could not create your agency",
+      });
+    }
   };
 
   return (
