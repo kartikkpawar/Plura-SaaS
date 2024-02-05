@@ -3,7 +3,7 @@
 import { clerkClient, currentUser } from "@clerk/nextjs";
 import { db } from "./db";
 import { redirect } from "next/navigation";
-import { User } from "@prisma/client";
+import { Agency, User } from "@prisma/client";
 
 export const getAuthUserDetails = async () => {
   const user = await currentUser();
@@ -174,4 +174,19 @@ export const verifyAndAcceptInvitation = async () => {
 
     return agency ? agency.agencyId : null;
   }
+};
+
+export const updateAgencyGoal = async (
+  agencyId: string,
+  agencyDetails: Partial<Agency>
+) => {
+  const res = await db.agency.update({
+    where: {
+      id: agencyId,
+    },
+    data: {
+      ...agencyDetails,
+    },
+  });
+  return res;
 };

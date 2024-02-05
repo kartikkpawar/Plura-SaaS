@@ -28,6 +28,8 @@ import { Input } from "../ui/input";
 import { Switch } from "../ui/switch";
 import { Button } from "../ui/button";
 import Loading from "../global/Loading";
+import { NumberInput } from "@tremor/react";
+import { saveActivityLogNotification, updateAgencyGoal } from "@/lib/queries";
 
 type Props = {
   data?: Partial<Agency>;
@@ -255,6 +257,32 @@ const AgencyDetails = ({ data }: Props) => {
                   </FormItem>
                 )}
               />
+
+              {data?.id && (
+                <div className="flex flex-col gap-2">
+                  <FormLabel>Create A Goal</FormLabel>
+                  <FormDescription>
+                    ✨ Create a goal for your agency. As your business grows
+                    your goals grow too so dont forget to set the bar higher!
+                  </FormDescription>
+                  <NumberInput
+                    defaultValue={data?.goal}
+                    onValueChange={async (value: number) => {
+                      if (!data?.id) return;
+                      await updateAgencyGoal(data?.id, { goal: value });
+                      await saveActivityLogNotification({
+                        agencyId: data.id,
+                        description: `Updated the agency goal to | ${value} Subaccount`,
+                        subaccountId: undefined,
+                      });
+                      router.refresh();
+                    }}
+                    min={1}
+                    className="bg-background !border !border-input"
+                    placeholder="Sub Account goal"
+                  />
+                </div>
+              )}
 
               <Button type="submit" disabled={isLoading}>
                 {isLoading ? <Loading /> : "Save Agency Information"}
