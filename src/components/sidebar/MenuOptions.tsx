@@ -50,7 +50,7 @@ const MenuOptions = ({
   const [isMounted, setIsMounted] = useState(false);
 
   const openState = useMemo(() => {
-    return defaultOpen ? { open: true } : { open: false };
+    return defaultOpen ? { open: true } : {};
   }, [defaultOpen]);
 
   useEffect(() => {
@@ -60,9 +60,12 @@ const MenuOptions = ({
   if (!isMounted) return;
 
   return (
-    <Sheet modal={false} {...openState} open={true}>
-      <SheetTrigger asChild className="absolute left-4 top-4 z-100 md:hidden">
-        <Button variant="outline" size="icon">
+    <Sheet modal={false} {...openState}>
+      <SheetTrigger
+        asChild
+        className="absolute left-4 top-4 z-[100] md:!hidden flex"
+      >
+        <Button variant="outline" size={"icon"}>
           <Menu />
         </Button>
       </SheetTrigger>
@@ -220,26 +223,28 @@ const MenuOptions = ({
                   </CommandList>
                   {(user?.role === "AGENCY_OWNER" ||
                     user?.role === "AGENCY_ADMIN") && (
-                    <Button
-                      className="w-full flex gap-2"
-                      onClick={() => {
-                        setOpen(
-                          <CustomModal
-                            title="Create a subaccount"
-                            subHeading="You can switch between your agency accout and subaccout from the sidebar"
-                          >
-                            <SubAccountDetails
-                              agencyDetails={user?.Agency as Agency}
-                              userId={user?.id as string}
-                              userName={user?.name}
-                            />
-                          </CustomModal>
-                        );
-                      }}
-                    >
-                      <PlusCircleIcon size={15} />
-                      Create Sub Account
-                    </Button>
+                    <SheetClose>
+                      <Button
+                        className="w-full flex gap-2"
+                        onClick={() => {
+                          setOpen(
+                            <CustomModal
+                              title="Create a subaccount"
+                              subHeading="You can switch between your agency accout and subaccout from the sidebar"
+                            >
+                              <SubAccountDetails
+                                agencyDetails={user?.Agency as Agency}
+                                userId={user?.id as string}
+                                userName={user?.name}
+                              />
+                            </CustomModal>
+                          );
+                        }}
+                      >
+                        <PlusCircleIcon size={15} />
+                        Create Sub Account
+                      </Button>
+                    </SheetClose>
                   )}
                 </Command>
               }
