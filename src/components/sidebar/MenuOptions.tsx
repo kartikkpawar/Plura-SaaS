@@ -1,5 +1,6 @@
 "use client";
 import {
+  Agency,
   AgencySidebarOption,
   SubAccount,
   SubAccountSidebarOption,
@@ -23,6 +24,7 @@ import {
 import Link from "next/link";
 import { useModal } from "@/providers/ModalProvider";
 import CustomModal from "../global/CustomModal";
+import SubAccountDetails from "../forms/SubAccountDetails";
 
 type Props = {
   defaultOpen?: Boolean;
@@ -226,7 +228,11 @@ const MenuOptions = ({
                             title="Create a subaccount"
                             subHeading="You can switch between your agency accout and subaccout from the sidebar"
                           >
-                            <></>
+                            <SubAccountDetails
+                              agencyDetails={user?.Agency as Agency}
+                              userId={user?.id as string}
+                              userName={user?.name}
+                            />
                           </CustomModal>
                         );
                       }}
