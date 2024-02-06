@@ -25,11 +25,13 @@ import Link from "next/link";
 import { useModal } from "@/providers/ModalProvider";
 import CustomModal from "../global/CustomModal";
 import SubAccountDetails from "../forms/SubAccountDetails";
+import { Separator } from "../ui/separator";
+import { icons } from "@/lib/constansts";
 
 type Props = {
   defaultOpen?: Boolean;
   subAccounts: SubAccount[];
-  sidebarOption: AgencySidebarOption[] | SubAccountSidebarOption[];
+  sidebarOptions: AgencySidebarOption[] | SubAccountSidebarOption[];
   sidebarLogo: string;
   details: any;
   user: any;
@@ -40,7 +42,7 @@ const MenuOptions = ({
   details,
   id,
   sidebarLogo,
-  sidebarOption,
+  sidebarOptions,
   subAccounts,
   user,
   defaultOpen,
@@ -250,6 +252,43 @@ const MenuOptions = ({
               }
             </PopoverContent>
           </Popover>
+          <p className="text-muted-foreground text-xs">MENU LINKS</p>
+          <Separator className="mb-4" />
+          <nav className="realtive">
+            <Command className="rounded-lg overflow-visible bg-transparent">
+              <CommandInput placeholder="Search..." />
+              <CommandList className="py-4 overflow-visible">
+                <CommandEmpty>No results found</CommandEmpty>
+                <CommandGroup className="overflow-visible">
+                  {sidebarOptions.map((sidebarOption) => {
+                    let val;
+                    const results = icons.find(
+                      (icon) => icon.value === sidebarOption.icon
+                    );
+
+                    if (results) {
+                      val = <results.path />;
+                    }
+
+                    return (
+                      <CommandItem
+                        key={sidebarOption.id}
+                        className="md:w-[320px] w-full"
+                      >
+                        <Link
+                          href={sidebarOption.link}
+                          className="flex items-center gap-2 hover:bg-transparent rounded-md transition-all md:w-full w-[320px]"
+                        >
+                          {val}
+                          <span className="">{sidebarOption.name}</span>
+                        </Link>
+                      </CommandItem>
+                    );
+                  })}
+                </CommandGroup>
+              </CommandList>
+            </Command>
+          </nav>
         </div>
       </SheetContent>
     </Sheet>

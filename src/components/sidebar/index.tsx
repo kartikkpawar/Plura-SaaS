@@ -51,7 +51,7 @@ const Sidebar = async ({ id, type }: Props) => {
         details={details}
         id={id}
         sidebarLogo={sidebarLogo}
-        sidebarOption={sidebarOptions}
+        sidebarOptions={sidebarOptions}
         subAccounts={subaccounts}
         user={user}
       />
@@ -59,7 +59,7 @@ const Sidebar = async ({ id, type }: Props) => {
         details={details}
         id={id}
         sidebarLogo={sidebarLogo}
-        sidebarOption={sidebarOptions}
+        sidebarOptions={sidebarOptions}
         subAccounts={subaccounts}
         user={user}
       />
