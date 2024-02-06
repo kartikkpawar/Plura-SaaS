@@ -42,7 +42,7 @@ import { NumberInput } from "@tremor/react";
 import {
   deleteAgency,
   initUser,
-  saveActivityLogNotification,
+  saveActivityLogsNotification,
   updateAgencyGoal,
   upsertAgency,
 } from "@/lib/queries";
@@ -372,7 +372,7 @@ const AgencyDetails = ({ data }: Props) => {
                     onValueChange={async (value: number) => {
                       if (!data?.id) return;
                       await updateAgencyGoal(data?.id, { goal: value });
-                      await saveActivityLogNotification({
+                      await saveActivityLogsNotification({
                         agencyId: data.id,
                         description: `Updated the agency goal to | ${value} Subaccount`,
                         subaccountId: undefined,
