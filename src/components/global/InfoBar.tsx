@@ -73,7 +73,8 @@ const InfoBar = ({ notifications, className, role, subAccountId }: Props) => {
               </SheetHeader>
               {allNotifications?.map((notification) => (
                 <div
-                  className="flex flex-col gap-y-2 mb-3 overflow-x-scroll text-ellipsis"
+                  // className="flex flex-col gap-y-2 mb-3 overflow-x-scroll text-ellipsis"
+                  className="flex flex-col gap-y-2 mb-3 text-ellipsis"
                   key={notification.id}
                 >
                   <div className="flex gap-2">
