@@ -28,7 +28,7 @@ const index = ({ data, subaccountId }: Props) => {
         <CommandInput placeholder="Search for file name" />
         <CommandList className="pb-40 max-h-full">
           <CommandEmpty className="text-foreground text-center mt-5">
-            No Media File
+            No Media Files
           </CommandEmpty>
           <div className="flex flex-wrap gap-4 pt-4">
             {data?.Media.map((file) => (
@@ -39,6 +39,17 @@ const index = ({ data, subaccountId }: Props) => {
                 <MediaCard file={file} />
               </CommandItem>
             ))}
+            {!data?.Media.length && (
+              <div className="flex items-center justify-center w-full flex-col">
+                <FolderSearch
+                  size={200}
+                  className="dark:text-muted text-slate-300"
+                />
+                <p className="text-muted-foreground ">
+                  Empty! no files to show.
+                </p>
+              </div>
+            )}
           </div>
         </CommandList>
       </Command>

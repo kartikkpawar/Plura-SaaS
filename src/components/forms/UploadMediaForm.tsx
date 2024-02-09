@@ -50,6 +50,7 @@ const UploadMediaForm = ({ subaccountId }: Props) => {
       await saveActivityLogsNotification({
         agencyId: undefined,
         description: `Uploaded a media file | ${res.name}`,
+        subaccountId,
       });
       toast({ title: "Succes", description: "Uploaded media" });
       router.refresh();

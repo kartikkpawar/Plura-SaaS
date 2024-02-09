@@ -37,11 +37,13 @@ const MediaCard = ({ file }: Props) => {
   const deleteMediaOnClick = async () => {
     setLoading(true);
     const response = await deleteMedia(file.id);
+
     await saveActivityLogsNotification({
       agencyId: undefined,
       description: `Deleted a media file | ${response?.name}`,
       subaccountId: response.subAccountId,
     });
+
     toast({
       title: "Deleted File",
       description: "Successfully deleted the file",

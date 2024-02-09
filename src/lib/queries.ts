@@ -512,11 +512,11 @@ export const createMedia = async (
   return response;
 };
 
-export const deleteMedia = async (fileId: string) => {
-  const res = await db.media.delete({
+export const deleteMedia = async (mediaId: string) => {
+  const response = await db.media.delete({
     where: {
-      id: fileId,
+      id: mediaId,
     },
   });
-  return res;
+  return response;
 };
