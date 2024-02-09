@@ -9,6 +9,7 @@ import React, { useEffect, useState } from "react";
 import { useToast } from "../ui/use-toast";
 import { useRouter } from "next/navigation";
 import {
+  changeUserPermissions,
   getAuthUserDetails,
   getUserPermissions,
   saveActivityLogsNotification,
@@ -27,6 +28,7 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -41,6 +43,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { Button } from "../ui/button";
+import Loading from "../global/Loading";
+import { Separator } from "../ui/separator";
+import { Switch } from "../ui/switch";
+import { v4 } from "uuid";
 
 type Props = {
   type: "agency" | "subaccount";
@@ -152,6 +159,56 @@ const UserDetails = ({ type, id, subAccounts, userData }: Props) => {
       console.log("Error could not submit");
     }
   };
+  const onChangePermission = async (
+    subAccountId: string,
+    value: boolean,
+    permissionsId: string | undefined
+  ) => {
+    if (!data.user?.email) return;
+    setLoadingPermissions(true);
+    const response = await changeUserPermissions(
+      permissionsId ? permissionsId : v4(),
+      data.user.email,
+      subAccountId,
+      value
+    );
+    if (type === "agency") {
+      await saveActivityLogsNotification({
+        agencyId: authUserData?.Agency?.id,
+        description: `Gave ${userData?.name} access to | ${
+          subAccountPermissions?.Permissions.find(
+            (p) => p.subAccountId === subAccountId
+          )?.SubAccount.name
+        } `,
+        subaccountId: subAccountPermissions?.Permissions.find(
+          (p) => p.subAccountId === subAccountId
+        )?.SubAccount.id,
+      });
+    }
+
+    if (response) {
+      toast({
+        title: "Success",
+        description: "The request was successfull",
+      });
+      if (subAccountPermissions) {
+        subAccountPermissions.Permissions.find((perm) => {
+          if (perm.subAccountId === subAccountId) {
+            return { ...perm, access: !perm.access };
+          }
+          return perm;
+        });
+      }
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Failed",
+        description: "Could not update permissions",
+      });
+    }
+    router.refresh();
+    setLoadingPermissions(false);
+  };
 
   return (
     <Card className="w-full">
@@ -222,10 +279,97 @@ const UserDetails = ({ type, id, subAccounts, userData }: Props) => {
                 render={({ field }) => (
                   <FormItem className="flex-1">
                     <FormLabel>User Role</FormLabel>
-                    <Select></Select>
+                    <Select
+                      disabled={field.value === "AGENCY_OWNER"}
+                      onValueChange={(value) => {
+                        if (
+                          value === "SUBACCOUNT_USER" ||
+                          value === "SUBACCOUNT_GUEST"
+                        ) {
+                          setRoleState(
+                            "You need to have subaccounts to assign Subaccount access to team members."
+                          );
+                        } else {
+                          setRoleState("");
+                        }
+                        field.onChange(value);
+                      }}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select user role..." />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="AGENCY_ADMING">
+                          Agency Admin
+                        </SelectItem>
+                        {(data?.user?.role === "AGENCY_OWNER" ||
+                          userData?.role === "AGENCY_OWNER") && (
+                          <SelectItem value="AGENCY_OWNER">
+                            Agency Owner
+                          </SelectItem>
+                        )}
+                        <SelectItem value="SUBACCOUNT_USER">
+                          Sub Account User
+                        </SelectItem>
+                        <SelectItem value="SUBACCOUNT_GUEST">
+                          Sub Account Guest
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <p className="text-muted-foreground">{roleState}</p>
                   </FormItem>
                 )}
               />
+              <Button
+                className=""
+                disabled={form.formState.isSubmitting}
+                type="submit"
+              >
+                {form.formState.isSubmitting ? <Loading /> : "Save User"}
+                {authUserData?.role === "AGENCY_OWNER" && (
+                  <div>
+                    <Separator className="my-4" />
+                    <FormLabel>User Permissions</FormLabel>
+                    <FormDescription className="mb-4">
+                      You can give Sub Account access to team member by turning
+                      on access control for each Sub Account. This is only
+                      visible to agency owners
+                    </FormDescription>
+                    <div className="flex flex-col gap-4">
+                      {subAccounts.map((subaccout) => {
+                        const subAccountPermissionsDetails =
+                          subAccountPermissions?.Permissions.find(
+                            (p) => p.subAccountId === subaccout.id
+                          );
+                        return (
+                          <div
+                            key={subaccout.id}
+                            className="flex flex-col items-center justify-between border p-4 rounded-lg"
+                          >
+                            <div>
+                              <p>{subaccout.name}</p>
+                            </div>
+                            <Switch
+                              disabled={loadingPermissions}
+                              checked={subAccountPermissionsDetails?.access}
+                              onCheckedChange={(permission) => {
+                                onChangePermission(
+                                  subaccout.id,
+                                  permission,
+                                  subAccountPermissionsDetails?.id
+                                );
+                              }}
+                            />
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </Button>
             </form>
           </Form>
         </CardContent>
