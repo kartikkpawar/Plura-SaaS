@@ -4,6 +4,7 @@ import React, { Fragment } from "react";
 import DataTable from "./DataTable";
 import { PlusIcon } from "lucide-react";
 import { columns } from "./Columns";
+import SendInvitation from "@/components/forms/SendInvitation";
 
 type Props = {
   params: { agencyId: string };
@@ -42,7 +43,7 @@ const TeamPage = async ({ params }: Props) => {
           Add
         </Fragment>
       }
-      modalChildren={<></>}
+      modalChildren={<SendInvitation agencyId={agencyDetails.id} />}
       filterValue="name"
       columns={columns}
       data={teamMembers}
