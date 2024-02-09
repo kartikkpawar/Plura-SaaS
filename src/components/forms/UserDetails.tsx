@@ -350,7 +350,7 @@ const UserDetails = ({ type, id, subAccounts, userData }: Props) => {
                     return (
                       <div
                         key={subaccout.id}
-                        className="flex flex-col items-center justify-between border p-4 rounded-lg"
+                        className="flex items-center justify-between border p-4 rounded-lg"
                       >
                         <div>
                           <p>{subaccout.name}</p>
