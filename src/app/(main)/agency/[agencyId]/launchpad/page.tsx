@@ -58,8 +58,8 @@ const LaunchpadPage = async ({ params, searchParams }: Props) => {
                   className="rounded-md object-contain"
                 />
                 <p>Save the website as a shortcut on your mobile devices</p>
-                <Button>Start</Button>
               </div>
+              <Button>Start</Button>
             </div>
             <div className="flex justify-between items-center w-full border p-4 rounded-lg gap-2">
               <div className="flex md:items-center gap-4 flex-col md:!flex-row">
