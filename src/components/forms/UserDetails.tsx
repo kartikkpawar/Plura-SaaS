@@ -52,8 +52,8 @@ import { v4 } from "uuid";
 type Props = {
   type: "agency" | "subaccount";
   id: string | null;
-  subAccounts: SubAccount[];
-  userData: Partial<User>;
+  subAccounts?: SubAccount[];
+  userData?: Partial<User>;
 };
 
 const UserDetails = ({ type, id, subAccounts, userData }: Props) => {
@@ -339,7 +339,7 @@ const UserDetails = ({ type, id, subAccounts, userData }: Props) => {
                       visible to agency owners
                     </FormDescription>
                     <div className="flex flex-col gap-4">
-                      {subAccounts.map((subaccout) => {
+                      {subAccounts?.map((subaccout) => {
                         const subAccountPermissionsDetails =
                           subAccountPermissions?.Permissions.find(
                             (p) => p.subAccountId === subaccout.id
