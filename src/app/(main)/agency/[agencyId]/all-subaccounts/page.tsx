@@ -24,6 +24,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import DeleteButton from "./_components/DeleteButton";
+import CreateSubaccountButton from "./_components/CreateButton";
 
 type Props = {
   params: { agencyId: string };
@@ -35,7 +36,11 @@ const AllSubaccountsPage = async ({ params }: Props) => {
   return (
     <AlertDialog>
       <div className="flex flex-col">
-        <Button>Create</Button>
+        <CreateSubaccountButton
+          user={user}
+          id={params.agencyId}
+          className="w-[200px] self-end m-6"
+        />
         <Command className="rounded-lg bg-transparent">
           <CommandInput placeholder="Searc Accounts..." />
           <CommandList>
