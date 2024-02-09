@@ -115,7 +115,9 @@ const MenuOptions = ({
               <Command className="rounded-lg">
                 <CommandInput className="" placeholder="Search Accounts ..." />
                 <CommandList className="pb-16">
-                  <CommandEmpty>No results found</CommandEmpty>
+                  <CommandEmpty className="text-foreground">
+                    No results found
+                  </CommandEmpty>
                   {(user?.role === "AGENCY_OWNER" ||
                     user?.role === "AGENCY_ADMIN") &&
                     user?.Agency && (
@@ -253,7 +255,9 @@ const MenuOptions = ({
             <Command className="rounded-lg overflow-visible bg-transparent">
               <CommandInput placeholder="Search..." />
               <CommandList className="py-4 overflow-visible">
-                <CommandEmpty>No results found</CommandEmpty>
+                <CommandEmpty className="text-foreground">
+                  No results found
+                </CommandEmpty>
                 <CommandGroup className="overflow-visible">
                   {sidebarOptions.map((sidebarOption) => {
                     let val;

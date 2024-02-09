@@ -44,7 +44,9 @@ const AllSubaccountsPage = async ({ params }: Props) => {
         <Command className="rounded-lg bg-transparent">
           <CommandInput placeholder="Searc Accounts..." />
           <CommandList>
-            <CommandEmpty>No Results Found.</CommandEmpty>
+            <CommandEmpty className="text-foreground">
+              No Results Found.
+            </CommandEmpty>
             <CommandGroup heading="Subaccounts">
               {user.Agency?.SubAccount.length ? (
                 user.Agency?.SubAccount.map((subaccount: SubAccount) => (
