@@ -28,7 +28,7 @@ import { useModal } from "@/providers/ModalProvider";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { Edit, MoreVertical, PlusCircleIcon, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React, { Dispatch, SetStateAction, useMemo } from "react";
+import React, { Dispatch, SetStateAction, useMemo, useRef } from "react";
 import CustomModal from "@/components/global/CustomModal";
 import TicketForm from "@/components/forms/TicketForm";
 import PipelineTicket from "./PipelineTicket";
@@ -68,7 +68,7 @@ const PipelineLane: React.FC<PipelaneLaneProps> = ({
     );
   }, [tickets]);
 
-  const randomColor = `#${Math.random().toString(16).slice(2, 8)}`;
+  const randomColor = useRef(`#${Math.random().toString(16).slice(2, 8)}`);
 
   const addNewTicket = (ticket: TicketWithTags[0]) => {
     setAllTickets([...allTickets, ticket]);
@@ -149,7 +149,7 @@ const PipelineLane: React.FC<PipelaneLaneProps> = ({
                       <div className="flex items-center w-full gap-2">
                         <div
                           className={cn("w-4 h-4 rounded-full")}
-                          style={{ background: randomColor }}
+                          style={{ background: randomColor.current }}
                         />
                         <span className="font-bold text-sm">
                           {laneDetails.name}
