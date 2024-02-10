@@ -70,7 +70,7 @@ const PipelineView = ({
             Create Lane
           </Button>
         </div>
-        {allLanes.length > 0 && (
+        {!!allLanes.length && (
           <Droppable
             droppableId="lanes"
             type="lane"
