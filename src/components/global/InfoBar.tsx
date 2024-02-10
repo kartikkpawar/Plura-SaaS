@@ -59,7 +59,7 @@ const InfoBar = ({ notifications, className, role, subAccountId }: Props) => {
                 <Bell size={17} />
               </div>
             </SheetTrigger>
-            <SheetContent className="mt-4 mr-4 pr-4 flex flex-col">
+            <SheetContent className="mt-4 mr-4 pr-4 overflow-scroll">
               <SheetHeader className="text-left">
                 <SheetTitle>Notifications</SheetTitle>
                 <SheetDescription>
@@ -73,8 +73,7 @@ const InfoBar = ({ notifications, className, role, subAccountId }: Props) => {
               </SheetHeader>
               {allNotifications?.map((notification) => (
                 <div
-                  // className="flex flex-col gap-y-2 mb-3 overflow-x-scroll text-ellipsis"
-                  className="flex flex-col gap-y-2 mb-3 text-ellipsis"
+                  className="flex flex-col gap-y-2 mb-2 text-ellipsis min-h-14 mt-2"
                   key={notification.id}
                 >
                   <div className="flex gap-2">
@@ -87,22 +86,22 @@ const InfoBar = ({ notifications, className, role, subAccountId }: Props) => {
                         {notification.User.name.slice(0, 2).toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
-                  </div>
-                  <div className="flex flex-col">
-                    <p>
-                      <span className="font-bold">
-                        {notification.notification.split("|")[0]}
-                      </span>
-                      <span className="text-muted-foreground">
-                        {notification.notification.split("|")[1]}
-                      </span>
-                      <span className="font-bold">
-                        {notification.notification.split("|")[2]}
-                      </span>
-                    </p>
-                    <small className="text-xs text-muted-foreground">
-                      {new Date(notification.createdAt).toLocaleDateString()}
-                    </small>
+                    <div className="flex flex-col">
+                      <p>
+                        <span className="font-bold">
+                          {notification.notification.split("|")[0]}
+                        </span>
+                        <span className="text-muted-foreground">
+                          {notification.notification.split("|")[1]}
+                        </span>
+                        <span className="font-bold">
+                          {notification.notification.split("|")[2]}
+                        </span>
+                      </p>
+                      <small className="text-xs text-muted-foreground">
+                        {new Date(notification.createdAt).toLocaleDateString()}
+                      </small>
+                    </div>
                   </div>
                 </div>
               ))}
