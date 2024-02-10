@@ -136,7 +136,7 @@ const MenuOptions = ({
                                   className="rounded-md object-contain"
                                 />
                               </div>
-                              <div className="flex flex-col flex-1">
+                              <div className="flex flex-col flex-1 text-foreground">
                                 {user?.Agency?.name}
                               </div>
                               <span className="text-muted-foreground">
