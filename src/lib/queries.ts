@@ -601,7 +601,7 @@ export const deletePipeline = async (pipelineId: string) => {
 };
 export const updateLanesOrder = async (lanes: Lane[]) => {
   try {
-    const updateTrans = lanes.map((lane) =>
+    const updateTransaction = lanes.map((lane) =>
       db.lane.update({
         where: {
           id: lane.id,
@@ -612,7 +612,7 @@ export const updateLanesOrder = async (lanes: Lane[]) => {
       })
     );
 
-    await db.$transaction(updateTrans);
+    await db.$transaction(updateTransaction);
     console.log("Done reordered 🟢");
   } catch (error) {
     console.log(error, "ERROR UPDATE LANES ORDER");
@@ -621,7 +621,7 @@ export const updateLanesOrder = async (lanes: Lane[]) => {
 
 export const updateTicketsOrder = async (tickets: Ticket[]) => {
   try {
-    const updateTrans = tickets.map((ticket) =>
+    const updateTransaction = tickets.map((ticket) =>
       db.ticket.update({
         where: {
           id: ticket.id,
@@ -633,7 +633,7 @@ export const updateTicketsOrder = async (tickets: Ticket[]) => {
       })
     );
 
-    await db.$transaction(updateTrans);
+    await db.$transaction(updateTransaction);
     console.log("Done reordered 🟢");
   } catch (error) {
     console.log(error, "ERROR UPDATE TICKET ORDER 🔴");
