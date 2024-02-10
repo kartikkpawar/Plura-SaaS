@@ -22,7 +22,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { deleteLane, saveActivityLogsNotification } from "@/lib/queries";
-import { LaneDetail, TicketWithTags } from "@/lib/type";
+import { LaneDetail, TicketWithTags } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { useModal } from "@/providers/ModalProvider";
 import { Draggable, Droppable } from "react-beautiful-dnd";

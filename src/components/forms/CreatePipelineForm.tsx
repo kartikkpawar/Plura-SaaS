@@ -23,7 +23,7 @@ import { Input } from "../ui/input";
 
 import { Button } from "../ui/button";
 import Loading from "../global/Loading";
-import { CreatePipelineFormSchema } from "@/lib/type";
+import { CreatePipelineFormSchema } from "@/lib/types";
 import {
   saveActivityLogsNotification,
   upsertFunnel,

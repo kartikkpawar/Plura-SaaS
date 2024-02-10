@@ -1,4 +1,4 @@
-import { GetMediaFiles } from "@/lib/type";
+import { GetMediaFiles } from "@/lib/types";
 import React from "react";
 import {
   Command,

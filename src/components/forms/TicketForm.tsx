@@ -5,7 +5,7 @@ import {
   searchContacts,
   upsertTicket,
 } from "@/lib/queries";
-import { TicketFormSchema, TicketWithTags } from "@/lib/type";
+import { TicketFormSchema, TicketWithTags } from "@/lib/types";
 import { useModal } from "@/providers/ModalProvider";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Contact, Tag, User } from "@prisma/client";

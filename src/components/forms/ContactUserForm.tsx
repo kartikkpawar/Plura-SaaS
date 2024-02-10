@@ -22,7 +22,7 @@ import {
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Loading from "../global/Loading";
-import { ContactUserFormSchema } from "@/lib/type";
+import { ContactUserFormSchema } from "@/lib/types";
 import { saveActivityLogsNotification, upsertContact } from "@/lib/queries";
 import { toast } from "../ui/use-toast";
 import { useRouter } from "next/navigation";

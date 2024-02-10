@@ -1,5 +1,5 @@
 "use client";
-import { TicketDetails } from "@/lib/type";
+import { TicketDetails } from "@/lib/types";
 import { Agency, Contact, User } from "@prisma/client";
 import React, { createContext, useContext, useEffect, useState } from "react";
 

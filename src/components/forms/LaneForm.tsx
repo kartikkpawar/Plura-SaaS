@@ -23,7 +23,7 @@ import { Input } from "../ui/input";
 
 import { Button } from "../ui/button";
 import Loading from "../global/Loading";
-import { LaneFormSchema } from "@/lib/type";
+import { LaneFormSchema } from "@/lib/types";
 import {
   getPipelineDetails,
   saveActivityLogsNotification,
