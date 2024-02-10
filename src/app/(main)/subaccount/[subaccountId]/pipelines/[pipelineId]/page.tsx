@@ -3,12 +3,15 @@ import { db } from "@/lib/db";
 import {
   getLaneDetailsWithTicketsAndTags,
   getPipelineDetails,
+  updateLanesOrder,
+  updateTicketsOrder,
 } from "@/lib/queries";
 import { LaneDetail } from "@/lib/type";
 import { redirect } from "next/navigation";
 import React from "react";
 import PipelineInfoBar from "../_components/PipelineInfoBar";
 import PipelineSettingsView from "../_components/PipelineSettingsView";
+import PipelineView from "../_components/PipelineView";
 
 type Props = {
   params: {
@@ -31,7 +34,7 @@ const PiplinePage = async ({ params }: Props) => {
   )) as LaneDetail[];
 
   return (
-    <Tabs defaultValue="veiw" className="w-full">
+    <Tabs defaultValue="view" className="w-full">
       <TabsList className="bg-transparent border-b-2 h-16 w-full justify-between mb-4">
         <PipelineInfoBar
           pipelineId={params.pipelineId}
@@ -43,7 +46,16 @@ const PiplinePage = async ({ params }: Props) => {
           <TabsTrigger value="settings">Settings</TabsTrigger>
         </div>
       </TabsList>
-      <TabsContent value="view">{/* <PipelineView /> */}</TabsContent>
+      <TabsContent value="view">
+        <PipelineView
+          lanes={lanes}
+          pipelineDetails={pipelineDetails}
+          pipelineId={params.pipelineId}
+          subaccountId={params.subaccountId}
+          updateLanesOrder={updateLanesOrder}
+          updateTicketsOrder={updateTicketsOrder}
+        />
+      </TabsContent>
       <TabsContent value="settings">
         <PipelineSettingsView
           pipelineId={params.pipelineId}
