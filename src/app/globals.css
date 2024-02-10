@@ -102,6 +102,9 @@ body {
 .use-automation-zoom-in {
   animation: automation-zoom-in 0.5s;
 }
+.scrollbar-hidden ::-webkit-scrollbar {
+  display: none;
+}
 
 @keyframes automation-zoom-in {
   0% {
