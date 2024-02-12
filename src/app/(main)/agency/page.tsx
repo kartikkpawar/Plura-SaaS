@@ -27,7 +27,7 @@ const Page = async ({
       if (searchParams.state) {
         const statePath = searchParams.state.split("___")[0];
         const stateAgencyId = searchParams.state.split("___")[1];
-        if (stateAgencyId) return <div>Not Athourized</div>;
+        if (!stateAgencyId) return <div>Not Athourized</div>;
         return redirect(
           `/agency/${stateAgencyId}/${statePath}?code=${searchParams.code}`
         );
